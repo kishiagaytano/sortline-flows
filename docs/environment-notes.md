@@ -29,3 +29,15 @@ CloudFormation provisions the tool resources in this account as:
 | bug-report-tool-stack-bug-reports | BugReports-421c6b10 |
 
 These are the same resources created by cloudformation-tool.yaml; only the generated names differ.
+
+## Support phone number
+
+The rubric requires that out-of-scope requests and questions not covered by the FAQ be
+directed to a human support phone line. The provided `online_shop_faq.md` does not contain a
+phone number - Q29 directs customers to a web contact form, and Q30 gives support hours
+(Monday-Friday, excluding holidays) without a number.
+
+The fictional number **1-800-555-0147** is therefore used consistently in both the `HandOff`
+node and the not-covered-by-FAQ fallback in the `FaqAnswer` node. It is drawn from the
+555-01XX range reserved for fictional use, so it cannot connect to a real party. The hours
+quoted in the hand-off match Q30 of the FAQ.
