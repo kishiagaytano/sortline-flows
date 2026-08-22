@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# OS
+**/.DS_Store
+Thumbs.db
+
+# AWS credentials - never commit
+.aws/
+credentials
+*.pem
+
+# Udacity leftovers
+**/planning.md
+demo_guides/*
+scripts/*
