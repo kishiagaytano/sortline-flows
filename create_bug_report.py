@@ -11,6 +11,13 @@ REQUIRED_FIELDS = ("description", "stepsToReproduce", "environment")
 def lambda_handler(event, _):
     print("EVENT:", json.dumps(event, indent=2, default=str))
 
+    # Normalise a JSON string payload before any shape detection, so that the
+    # membership and .get() tests below always run against a dict.
+    if isinstance(event, str):
+        event = json.loads(event)
+    if not isinstance(event, dict):
+        return {"error": "unsupported"}
+
     if "node" in event:
         raw = event["node"]["inputs"][0]["value"]
         body = json.loads(raw) if isinstance(raw, str) else raw
@@ -20,12 +27,15 @@ def lambda_handler(event, _):
                 if isinstance(p, dict) and p.get("name") is not None}
     else:
         body = event
-        if isinstance(body, str):
-            body = json.loads(body)
 
-    description = (body.get("description") or "").strip()
-    steps = (body.get("stepsToReproduce") or "").strip()
-    environment = (body.get("environment") or "").strip()
+    if isinstance(body, str):
+        body = json.loads(body)
+    if not isinstance(body, dict):
+        return _resp(event, {"error": "unsupported"})
+
+    description, steps, environment = (
+        (body.get(field) or "").strip() for field in REQUIRED_FIELDS
+    )
 
     if not description:
         return _resp(event, {"error": "missing", "field": "description"})
