@@ -11,12 +11,17 @@ REQUIRED_FIELDS = ("description", "stepsToReproduce", "environment")
 def lambda_handler(event, _):
     print("EVENT:", json.dumps(event, indent=2, default=str))
 
-    if event.get("messageVersion") == "1.0":
+    if "node" in event:
+        raw = event["node"]["inputs"][0]["value"]
+        body = json.loads(raw) if isinstance(raw, str) else raw
+    elif event.get("messageVersion") == "1.0":
         params = event.get("parameters") or []
         body = {p.get("name"): p.get("value") for p in params
                 if isinstance(p, dict) and p.get("name") is not None}
     else:
         body = event
+        if isinstance(body, str):
+            body = json.loads(body)
 
     description = (body.get("description") or "").strip()
     steps = (body.get("stepsToReproduce") or "").strip()
@@ -41,7 +46,7 @@ def lambda_handler(event, _):
 
 
 def _resp(event, obj):
-    if event.get("messageVersion") != "1.0":
+    if "node" in event or event.get("messageVersion") != "1.0":
         return obj
     return {
         "messageVersion": "1.0",
