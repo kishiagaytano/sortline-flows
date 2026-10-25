@@ -413,6 +413,6 @@ the testing stack is deleted, or the stack lands in `DELETE_FAILED`.
 
 **Built with** [Amazon Bedrock Flows](https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html) · [Amazon Nova](https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html) · [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) · [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) · [Bedrock Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-create.html) · [Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html)
 
-Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) · Course material © Udacity, see [LICENSE](LICENSE.md)
 
 </div>
